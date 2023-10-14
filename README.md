@@ -1,14 +1,18 @@
+
+
 # CWT_Multi
-A MATLAB routine used to calculate nonstationary tidal amplitudes and phases, as well as water level reconstructions, using a special form of continuous wavelet transform (CWT) analysis.
+CWT_Multi is written in Matlab version R2020a.
+
+This is a MATLAB routine used to calculate nonstationary tidal amplitudes and phases, as well as water level reconstructions, using a special form of continuous wavelet transform (CWT) analysis.
 
 ## METHOD ##
 CWT_Multi.m is a MATLAB routine that performs continuous wavelet
 transform (CWT) analysis on an Nx1 real, scalar time series.
-This is done using two different sets of filter banks.
+This is done using two different sets of filter banks (see Lobo et al., 2023 for details).
 
 The species analysis uses one filter per tidal species
 to identify changes in tidal species energy on a short
-timescale (approx. 80% of energy found within a one week window).
+timescale (approx. 80% of energy found within a few days).
 The filters are shorter in time and therefore have a wider
 response in frequency-space.
 
@@ -17,7 +21,7 @@ in major constituents within a tidal species on a still
 relatively short time scale (approx. 80% of energy found within a
 one week window), while also tracking minor constituents on longer
 timescales (approx. 80% of energy found within a three week window).
-The details of this analysis are covered in the manuscript.
+The details of this analysis are covered in the above manuscript.
 
 CWT_Multi.m also includes a dynamic inference feature (accessed by using
 the optional argument 'dynamicInference') that will use results from
@@ -27,7 +31,7 @@ the respective constituents on the timescale of the length of the major
 constituent filters from the constituents analysis.
 
 Note that due to two-way, three-way, and higher beating interactions
-between tidal constituents, the results must be interpreted partly
+between tidal constituents, the analysis output must be interpreted partly
 by understanding these interactions and their manifestations in the
 results.
 
