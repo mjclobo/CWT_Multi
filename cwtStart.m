@@ -198,6 +198,8 @@ if size(tPts,1) > 1
     tPts = tPts';
 end
 
+nData = length(dataIn);
+
 %% setting defaults for optional args
 t1 = tPts(end);
 
