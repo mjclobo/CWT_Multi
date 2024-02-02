@@ -5,6 +5,13 @@ CWT_Multi is written in Matlab version R2020a.
 
 This is a MATLAB routine used to calculate nonstationary tidal amplitudes and phases, as well as water level reconstructions, using a special form of continuous wavelet transform (CWT) analysis.
 
+## EXAMPLE ##
+An example may be found in the CWT_MWE.m file in the repo.
+Here we analyze two years of data from the Columbia River at Vancouver
+(NOAA station 9440083).
+Data from Astoria (NOAA station 9439040) is used as a reference station when
+calculating tidal admittances.
+
 ## METHOD ##
 CWT_Multi.m is a MATLAB routine that performs continuous wavelet
 transform (CWT) analysis on an Nx1 real, scalar time series.
@@ -26,12 +33,12 @@ The details of this analysis are covered in the above manuscript.
 CWT_Multi.m also includes a dynamic inference feature (accessed by using
 the optional argument 'dynamicInference') that will use results from
 six month filters of K1, P1 and S2, K2, respectively, to form
-time-dependent ratios, which are then used to infer the amplitudes of
+time-dependent constituent ratios that are then used to infer the amplitudes of
 the respective constituents on the timescale of the length of the major
 constituent filters from the constituents analysis.
 
 Note that due to two-way, three-way, and higher beating interactions
-between tidal constituents, the analysis output must be interpreted partly
+between tidal constituents, the analysis output must be interpreted in part
 by understanding these interactions and their manifestations in the
 results.
 

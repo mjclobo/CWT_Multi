@@ -1,6 +1,8 @@
 %% Define admittance output structures
 
 n = 1;
+admittances.wl = dataIn;
+
 for k=ref.constits.names
     admittances.constits.(k).amps = constits.(k).amps ./ ref.constits.(k).amps;
     admittances.constits.(k).abs_phase = constits.(k).phases - ref.constits.(k).phases;

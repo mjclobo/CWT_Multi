@@ -159,7 +159,7 @@ end
 if pfFilt == 1
     
     p = figure();
-    filt = species_nfiltr{4};
+    filt = spNFilt{4};
     t_half = (length(filt)-1)/2;
     x = (-t_half:t_half)*deltaT;
     plot(x,real(filt),'linewidth',2)
@@ -176,7 +176,7 @@ if pfFilt == 1
     
     if spOnlyBool==0
         p = figure();
-        filt = constits_nfiltr_d2{1};
+        filt = coNFiltD2{1};
         t_half = (length(filt)-1)/2;
         x = (-t_half:t_half)*deltaT;
         plot(x,real(filt),'linewidth',2)
