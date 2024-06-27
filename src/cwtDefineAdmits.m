@@ -17,3 +17,5 @@ for k=ref.species.names
     n=n+1;
 end
 
+admittances = rmfield(admittances,'wl');
+

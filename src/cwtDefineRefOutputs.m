@@ -33,9 +33,11 @@ if spOnlyBool==0
 end
 
 if refStnFlag==0
-    ref.potential = poten;
+    ref.ref_wl = poten;
+else
+    ref.ref_wl = ref.wl;
 end
 
-
+ref = rmfield(ref,'wl');
 
 

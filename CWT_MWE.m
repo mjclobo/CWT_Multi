@@ -1,4 +1,5 @@
 %% Basic example of CWT_Multi usage
+addpath('./src')
 
 %% load data
 load('./data/Astoria/astoria_wl.mat')
@@ -50,6 +51,7 @@ grid on
 legend('location','northeast')
 title('Vancouver D_2', 'Units', 'normalized', 'Position', [0.5, 0.85, 0]) 
 set(gca,'xtick',[])
+ylabel(gca,'Amp. (m)')
 xlim([constits.decTimesAll(1) constits.decTimesAll(end)])
 ax = gca;
 ax.FontSize = 14;
@@ -64,6 +66,7 @@ grid on
 legend('location','northeast')
 title('Astoria D_2', 'Units', 'normalized', 'Position', [0.5, 0.85, 0]) 
 set(gca,'xtick',[])
+ylabel(gca,'Amp. (m)')
 xlim([constits.decTimesAll(1) constits.decTimesAll(end)])
 ax = gca;
 ax.FontSize = 14;
@@ -77,12 +80,13 @@ hold(ax2,'off')
 grid on
 legend('location','northeast')
 title('Vancouver/Astoria D_2admittances', 'Units', 'normalized', 'Position', [0.5, 0.85, 0]) 
-set(gca,'xtick',[])
+% set(gca,'xtick',[])
+ylabel(gca,'Admit.')
 xlim([constits.decTimesAll(1) constits.decTimesAll(end)])
 ax = gca;
 ax.FontSize = 14;
 
-% xlabel(p,'Time','FontSize',18)
-ylabel(p,'Amplitude (m)','FontSize',18)
+xlabel(p,'Time','FontSize',18)
+% ylabel(p,'Amplitude (m)','FontSize',18)
 set(gcf,'Position',[100 100 1600 500])
 

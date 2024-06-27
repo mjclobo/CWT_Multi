@@ -39,6 +39,7 @@ if dynInfFlag==1
     ax.FontSize = 14;
     set(gcf,'Position',[100 100 1500 600])
     
+    %%
     p = figure;
     if nDiffK1>0
         x=constits.decTimesAll(1+offsetK1:end-offsetK1);
@@ -148,7 +149,7 @@ function [dynInf,offset,nDiff] = dynamicInf(namesIn,nStart,soln,amps,phases,filt
             dynInf.(inferredCon).shortAmps = abs(dynInf.(inferredCon).shortCompSol);
             
             % phases
-            phases_unext =  calcShortPhases(dynInf.(inferredCon).shortCompSol(nExt:domL-nExt),length(dynInf.(inferredCon).shortCompSol(nExt:domL-nExt)),coRadians(k),coTimeRel,rad2deg,ampFloor,...
+            phases_unext =  calcShortPhases(dynInf.(inferredCon).shortCompSol(nExt:domL-nExt),min([length(coRefTime),length(dynInf.(inferredCon).shortCompSol(nExt:domL-nExt))]),coRadians(k),coTimeRel,rad2deg,ampFloor,...
             ampLimit,coRefTime,diOmega(k),alt_phase_bool,k);
         
             phases_ext = extendDI(phases_unext,decFact,maxFLShort,nData);
@@ -161,7 +162,7 @@ function [dynInf,offset,nDiff] = dynamicInf(namesIn,nStart,soln,amps,phases,filt
             dynInf.(inferredCon).shortAmps = abs(dynInf.(inferredCon).shortCompSol);
 
             % phases
-            phases_unext =  calcShortPhases(dynInf.(inferredCon).shortCompSol(nExt:domL-nExt),length(dynInf.(inferredCon).shortCompSol(nExt:domL-nExt)),coRadians(k),coTimeRel,rad2deg,ampFloor,...
+            phases_unext =  calcShortPhases(dynInf.(inferredCon).shortCompSol(nExt:domL-nExt),min([length(coRefTime),length(dynInf.(inferredCon).shortCompSol(nExt:domL-nExt))]),coRadians(k),coTimeRel,rad2deg,ampFloor,...
             ampLimit,coRefTime,diOmega(k),alt_phase_bool,k);
         
             phases_ext = extendDI(phases_unext,decFact,maxFLShort,nData);
@@ -174,7 +175,7 @@ function [dynInf,offset,nDiff] = dynamicInf(namesIn,nStart,soln,amps,phases,filt
             dynInf.(inferredCon).shortAmps = abs(dynInf.(inferredCon).shortCompSol);
             
             % phases
-            phases_unext =  calcShortPhases(dynInf.(inferredCon).shortCompSol(nExt:domL-nExt),length(dynInf.(inferredCon).shortCompSol(nExt:domL-nExt)),coRadians(k),coTimeRel,rad2deg,ampFloor,...
+            phases_unext =  calcShortPhases(dynInf.(inferredCon).shortCompSol(nExt:domL-nExt),min([length(coRefTime),length(dynInf.(inferredCon).shortCompSol(nExt:domL-nExt))]),coRadians(k),coTimeRel,rad2deg,ampFloor,...
             ampLimit,coRefTime,diOmega(k),alt_phase_bool,k);
         
             phases_ext = extendDI(phases_unext,decFact,maxFLShort,nData);

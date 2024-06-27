@@ -30,6 +30,7 @@ statWindowBool    = 0;
 doMonthly         = 0;
 alt_phase_bool    = 0;
 rel_phase_bool    = 0;
+gabor_wavelet     = 0;
 
 coCutoffHi = 5*24;      % Cutoff frequency of 5 days for high-passed data
 spCutoffHi = 5*24;
@@ -130,6 +131,9 @@ while ~isempty(varargin)
             rel_phase_bool = 1;
             rel_phase_date = varargin{2};
             varargin(1:2)  = [];
+        case 'gabor_wavelet'
+            gabor_wavelet = 1;
+            varargin(1) = [];
          otherwise
             error(['Unrecognized argument: ' varargin{1}]);
     end
@@ -212,7 +216,8 @@ rad2deg = 180 / pi;
 
 ampLimit = 7;       % max valid constit amplitude
 ampFloor = 10^-6;
-respThresh = 10^-4;
+respThresh = -1.0; %10^-4; threshold for "good" amplitude, measured as absolute value...so negative value means all amplitudes are carried through analysis
+% ^if you change resp to be >=0., then indices of, e.g., modRC values will need to be tracked carefully
 wtCrit = 0.9;       % fraction of good data (i.e., not missing) needed to report a wavelet result
 
 %% checking for errors

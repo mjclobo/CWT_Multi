@@ -21,6 +21,7 @@ if spOnlyBool==0
     end
 end
 
+
 %% Solve using responses between species filters
 [spSoln,spResp] = invertSol(spCompConvTrim,spNDec,1,spN,respThresh,spNFilt,spOmega,deltaT);
 
@@ -85,8 +86,8 @@ function [solnAll,validResp] = invertSol(filtOutput,nVals,indStart,indStop,respT
     for j=1:nVals
         
         dataResp = filtOutput(j,indStart:indStop);
-        validVals = find(abs(dataResp)>respThresh);
-        invalidVals = find(abs(dataResp)<=respThresh);
+        validVals = find(abs(dataResp)> respThresh);
+        invalidVals = find(abs(dataResp)<= respThresh);
         invec = dataResp(validVals);
         validResp = freqResp(cnf(validVals),cod(validVals),dt);
         
@@ -100,7 +101,7 @@ function [solnAll,validResp] = invertSol(filtOutput,nVals,indStart,indStop,respT
         end
         
     end
-
+    
 end
 
 function [solnWts,solnAmpsAll,phaseOut,timesAll,solnFunc] = solnProcess(timesIn,soln,N,nDec,radians,radiansOrig,tPts,timeRel,rad2deg,ampFloor,ampLimit,maxFL,decFact,nData,tConv,omega,alt_phase)

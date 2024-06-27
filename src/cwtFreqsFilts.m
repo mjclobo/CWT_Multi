@@ -46,7 +46,7 @@ if spOmegaFlag==0
                  (0.0805114007 * 5 + 0.0417807462), ... % MK11
                  (0.0805114007 * 6)};                   % M12
     
-    species.names = ["low4d","low2d","d1","d2","d3","d4","d5","d6","d7","d8","d9","d10","d11","d12"];
+    species.names = ["low4d","low2d","D1","D2","D3","D4","D5","D6","D7","D8","D9","D10","D11","D12"];
 
 end
 
@@ -62,8 +62,8 @@ spFreqWts = [ones(spNLow, 1); 2 .* ones(spN-spNLow,1)];   % downweight subtidal 
 coPeriods = cell2mat(coFreqs).^-1;
 spPeriods = cell2mat(spFreqs).^-1;
 
-[coOmega,coMaxFiltLength,coStartTime,coStartTimeOrig,coFilt,coNFilt,coNorm,coFiltLength] = filtBuild(coFreqs,coFiltLength,deltaT,t1,t1Orig);
-[spOmega,spMaxFiltLength,spStartTime,spStartTimeOrig,spFilt,spNFilt,spNorm,spFiltLength] = filtBuild(spFreqs,spFiltLength,deltaT,t1,t1Orig);
+[coOmega,coMaxFiltLength,coStartTime,coStartTimeOrig,coFilt,coNFilt,coNorm,coFiltLength] = filtBuild(coFreqs,coFiltLength,deltaT,t1,t1Orig,gabor_wavelet);
+[spOmega,spMaxFiltLength,spStartTime,spStartTimeOrig,spFilt,spNFilt,spNorm,spFiltLength] = filtBuild(spFreqs,spFiltLength,deltaT,t1,t1Orig,gabor_wavelet);
 
 [coNFiltD1,coNFiltD2] = deal(coNFilt(1:coND1),coNFilt(coND1+1:coND1+coND2));
 [coNFiltD3,coNFiltD4] = deal(coNFilt(coND1+coND2+1:coND1+coND2+coND3),coNFilt(coND1+coND2+coND3+1:coN));
@@ -96,7 +96,7 @@ if doMonthly==1
 
     moPeriods = cell2mat(moFreqs).^-1;
 
-    [moOmega,moMaxFiltLength,moStartTime,moStartTimeOrig,moFilt,moNFilt,moNorm,moFiltLength] = filtBuild(moFreqs,moFiltLength,deltaT,t1,t1Orig);
+    [moOmega,moMaxFiltLength,moStartTime,moStartTimeOrig,moFilt,moNFilt,moNorm,moFiltLength] = filtBuild(moFreqs,moFiltLength,deltaT,t1,t1Orig,gabor_wavelet);
 
     moOmega = cell2mat(moOmega);
 
@@ -123,7 +123,7 @@ if dynInfFlag==1
 
     diPeriods = cell2mat(diFreqs).^-1;
 
-    [diOmega,diMaxFiltLength,diStartTime,diStartTimeOrig,diFilt,diNFilt,diNorm,diFiltLength] = filtBuild(diFreqs,diFiltLength,deltaT,t1,t1Orig);
+    [diOmega,diMaxFiltLength,diStartTime,diStartTimeOrig,diFilt,diNFilt,diNorm,diFiltLength] = filtBuild(diFreqs,diFiltLength,deltaT,t1,t1Orig,gabor_wavelet);
 
     diOmega = cell2mat(diOmega);
 
@@ -138,7 +138,7 @@ if dynInfCustFlag==1
 
     diPeriods = cell2mat(diFreqs).^-1;
 
-    [diOmega,diMaxFiltLength,diStartTime,diStartTimeOrig,diFilt,diNFilt,diNorm,diFiltLength] = filtBuild(diFreqs,diFiltLength,deltaT,t1,t1Orig);
+    [diOmega,diMaxFiltLength,diStartTime,diStartTimeOrig,diFilt,diNFilt,diNorm,diFiltLength] = filtBuild(diFreqs,diFiltLength,deltaT,t1,t1Orig,gabor_wavelet);
 
     diOmega = cell2mat(diOmega);
 
@@ -152,7 +152,7 @@ end
 %% FUNCTIONS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function [omega,maxFiltLength,startTime,startTimeOrig,filt,nFilt,norm,filtLength] = filtBuild(fFreqs,filtLength,deltaT,t1,t1Orig)
+function [omega,maxFiltLength,startTime,startTimeOrig,filt,nFilt,norm,filtLength] = filtBuild(fFreqs,filtLength,deltaT,t1,t1Orig,gabor_wavelet)
     
     N = length(filtLength);
 
@@ -172,7 +172,7 @@ function [omega,maxFiltLength,startTime,startTimeOrig,filt,nFilt,norm,filtLength
 
     startTime = (-t1 + deltaT * (maxFiltLength-1) / 2) .* ones(N,1);
 %     startTimeOrig = (t1Orig + deltaT * (maxFiltLength-1) / 2) .* ones(N,1);
-    startTimeOrig = double(t1Orig + deltaT * (maxFiltLength-1) / 2) .* ones(N,1);
+    startTimeOrig = double(double(t1Orig) + deltaT * (maxFiltLength-1) / 2) .* ones(N,1);
 
     
     % startTimeOrig = t1Orig .* ones(N,1); % idea here is that initial phase is just relative to start of signal, regardless of when filters start
@@ -195,8 +195,16 @@ function [omega,maxFiltLength,startTime,startTimeOrig,filt,nFilt,norm,filtLength
 
     %% Define filter properties
     filtFunc = @(om) tidalwavelet(-tMid(om) + ((1:filtLength(om))-1)*deltaT, omegaFlat(om),om,tMid); 
+    
     filt = cellit(filtFunc,(1:N));
     
+    %% Gabor transform test
+    if gabor_wavelet==1
+        gabor_filt_func = @(t,om,t0,a) exp(-(t-t0).^2./(a^2)) .* exp(-1i * om .* (t - t0));
+
+        filtFunc = @(om) gabor_filt_func(-tMid(om) + ((1:filtLength(om))-1)*deltaT, omegaFlat(om),0,0.4*tMid(om));
+        filt = cellit(filtFunc,(1:N));
+    end
     %% Filter normalization
     testc = @(t,om) cos(om * t);
 
