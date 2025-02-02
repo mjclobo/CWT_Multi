@@ -239,7 +239,7 @@ end
 if nDataIn < max(coFiltLength) && nDataIn < max(spFiltLength)
     error("Your time series is shorter than maximum species and constituents filter lengths.")
 elseif nDataIn < max(coFiltLength) && nDataIn >= max(spFiltLength)
-    warning("Your time series is longer than max species filters, but shorter than max constituent filters. Performing species analysis only.")
+    warning("Your time series is longer than max species filter, but shorter than max constituent filters. Performing species analysis only.")
     spOnlyBool = 1;
 end
 

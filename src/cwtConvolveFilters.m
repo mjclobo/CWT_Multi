@@ -84,7 +84,7 @@ function [dataLo,dataHi] = idealLowPass(data,wts,maxFL,deltaT,nanInd)
     filtLo = fir1(sp_n,wn,ftype,kaiser(sp_n+1,beta),'noscale');
     
     % applying filters
-    data(nanInd) = nanmean(data);
+    data(nanInd) = mean(data, "omitmissing");
     
     dataLo = conv(data,filtLo,'same');
     dataHi = data - dataLo;
