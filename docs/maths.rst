@@ -64,29 +64,17 @@ in time, which we call :math:`S_{1}(t)` and
 :math:`S_{2}(t)` here for convenience.
 Generally one signal is your signal of interest, e.g., a water level time series,
 while the other signal is a piece of some analytic method, e.g., a sine wave.
+A convolution is a function of time
 The steps to a convolution are:
 
-- Line up :math:`S_{1}(t)` and :math:`S_{2}(t)` so that they overlap
-  by one point in time
+- Line up :math:`S_{1}(t)` and a flipped version of :math:`S_{2}(t - \tau)` so that they overlap
+  by one point in time (:math:`\tau`, loosely, tracks by how many points the two signals overlap) 
 - Multiply every point in time and sum (note that the only non-zero parts
   of the sum are where the two signals overlap)
-- Shift :math:`S_{2}(t)` one point to the left, so that the two signals
+- Shift :math:`S_{2}(t - \tau)` one point to the left, so that the two signals
   overlap at two points in time and sum
-- Repeat this process until :math:`S_{2}(t)` is on the left side
-  of :math:`S_{1}(t)`
-
-
-Importantly, the convolution of a sine wave at given frequency, :math:`f`,
-with a signal, :math:`S(t)`, will return the amplitude of the sine wave
-with frequency :math:`f` that contributes to the linear superposition of
-sine waves that can be summed to reconstruct :math:`S(t)` from said sine waves.
-For example, in the image above, a convolution of a sine wave at the frequency of the
-red line with the black line would return the amplitude of the red line.
-
-
-However, we are still left without information on the phase of the sine wave that
-contributes to the signal.
-For this, we turn to complex numbers.
+- Repeat this process until :math:`S_{2}(t - \tau)` is on the left side
+  of :math:`S_{1}(t)`, i.e., :math:`\tau > t_\mathrm{max}`
 
 
 
