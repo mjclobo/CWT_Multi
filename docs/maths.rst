@@ -21,10 +21,12 @@ to them.
 Sinusoids and complex exponentials
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 A *sine wave* is a signal that takes the form
-.. math::
-s(t) = A \mathrm{sin} ( \omega t + \phi ) \, ,
+
+   .. math::
+    s(t) = A \mathrm{sin} ( \omega t + \phi ) \, ,
 
 where
+
 - :math:`A` is the *amplitude* of the wave with the units of your signal (e.g., meters for water level data)
 - :math:`\omega = 2 \pi f` is the *angular frequency* with units rad/s
 - :math:`f` is the *frequency* with units of cycles/s, i.e., Hz
@@ -43,34 +45,57 @@ waves.
 In particular, a Fourier transform routine will provide the user
 with the amplitude, frequency and phase offset for each sine wave
 that contributes to the original signal.
+Though there are many technical aspects to both the mathematics
+and the practical application of Fourier transforms, the information
+presented so far is sufficient for our purposes.
+
 
 .. image:: /images/FT_drawing.png
    :width: 300pt
+
+
 
 Convolution
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 One of the main math tools needed to compute a Fourier transform
 is the *convolution*.
-The ingredients of a convolution are two signals evenly-spaced
-in time.
+The ingredients of a convolution are two signals that are evenly-spaced
+in time, which we call :math:`S_{1}(t)` and
+:math:`S_{2}(t)` here for convenience.
 Generally one signal is your signal of interest, e.g., a water level time series,
-while the other signal is a piece to some analytic method.
+while the other signal is a piece of some analytic method, e.g., a sine wave.
 The steps to a convolution are:
-- 
+
+- Line up :math:`S_{1}(t)` and :math:`S_{2}(t)` so that they overlap
+  by one point in time
+- Multiply every point in time and sum (note that the only non-zero parts
+  of the sum are where the two signals overlap)
+- Shift :math:`S_{2}(t)` one point to the left, so that the two signals
+  overlap at two points in time and sum
+- Repeat this process until :math:`S_{2}(t)` is on the left side
+  of :math:`S_{1}(t)`
 
 
+Importantly, the convolution of a sine wave at given frequency, :math:`f`,
+with a signal, :math:`S(t)`, will return the amplitude of the sine wave
+with frequency :math:`f` that contributes to the linear superposition of
+sine waves that can be summed to reconstruct :math:`S(t)` from said sine waves.
+For example, in the image above, a convolution of a sine wave at the frequency of the
+red line with the black line would return the amplitude of the red line.
 
 
-
-
+However, we are still left without information on the phase of the sine wave that
+contributes to the signal.
+For this, we turn to complex numbers.
 
 
 
 Complex numbers
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 We define a complex number as
-.. math::
-C \equiv a + i \, b \, ,
+
+   .. math::
+   C \equiv a + i \, b \, ,
 
 where :math:`a` is the *real* component,
 :math:`b` is the *imaginary* component,
