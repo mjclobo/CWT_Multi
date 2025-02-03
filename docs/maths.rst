@@ -95,7 +95,7 @@ Complex numbers
 We define a complex number as
 
    .. math::
-   C \equiv a + i \, b \, ,
+   C = a + i b  ,
 
 where :math:`a` is the *real* component,
 :math:`b` is the *imaginary* component,

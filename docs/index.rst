@@ -19,5 +19,5 @@ Contents
 
    install
    maths
-   usage
+   CWTex
    
