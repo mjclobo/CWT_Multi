@@ -1,7 +1,7 @@
 Welcome to CWT_Multi's documentation!
 ===================================
 
-**CWT_Multi** (/lu'make/) is a set of MATLAB routines that
+**CWT_Multi** is a set of MATLAB routines that
 perform a version of continuous wavelet transform (CWT) analysis
 that is specialized for application to nonstationary tidal data.
 
