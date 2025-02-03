@@ -44,7 +44,7 @@ In particular, a Fourier transform routine will provide the user
 with the amplitude, frequency and phase offset for each sine wave
 that contributes to the original signal.
 
-.. figure:: /images/FT_drawing.pdf
+.. image:: /images/FT_drawing.pdf
    :width: 300pt
 
 Complex numbers
