@@ -44,8 +44,27 @@ In particular, a Fourier transform routine will provide the user
 with the amplitude, frequency and phase offset for each sine wave
 that contributes to the original signal.
 
-.. image:: /images/FT_drawing.pdf
+.. image:: /images/FT_drawing.png
    :width: 300pt
+
+Convolution
+~~~~~~~~~~~~~~~~~~~~~~~~~
+One of the main math tools needed to compute a Fourier transform
+is the *convolution*.
+The ingredients of a convolution are two signals evenly-spaced
+in time.
+Generally one signal is your signal of interest, e.g., a water level time series,
+while the other signal is a piece to some analytic method.
+The steps to a convolution are:
+- 
+
+
+
+
+
+
+
+
 
 Complex numbers
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -59,18 +78,6 @@ and :math:`i = \sqrt{-1}` is the
 *imaginary number*.
 The power of complex numbers, arguably, lies in their ability to
 represent sine waves.
-
-
-
-
-Convolution
-~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-
-
-
-
 
 
 
