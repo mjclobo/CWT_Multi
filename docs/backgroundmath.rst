@@ -1,12 +1,12 @@
 =========================================
-Basic CWT_Multi theory
+Background math
 =========================================
 
-On this page we provide the basic theory required
+On this page we provide the math background required
 to understand how CWT_Multi, and wavelet transforms more generally,
 work.
 We present ideas and illustrations, rather than comprehensive maths.
-Future pages in this documentation will cover the mathematic details.
+Future pages in this documentation will cover the mathematical details.
 For now, we refer the reader to Lobo et al. (2024), and include
 additional references at the bottom of this page.
 
@@ -82,8 +82,8 @@ Complex numbers
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 We define a complex number as
 
-   .. math::
-   C = a + i b  ,
+.. math::
+    C \equiv a + i \, b \,  ,
 
 where :math:`a` is the *real* component,
 :math:`b` is the *imaginary* component,
@@ -108,28 +108,6 @@ A wavelet
 
 
 A spectrogram
-~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-
-
-
-
-
-
-
-Response coefficient matrix
-~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-
-
-
-
-
-
-
-CWT_Multi filter bank
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 

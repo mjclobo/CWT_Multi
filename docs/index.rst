@@ -18,6 +18,7 @@ Contents
 .. toctree::
 
    install
-   maths
+   backgroundmath
+   CWTmath
    CWTex
    
