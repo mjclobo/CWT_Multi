@@ -5,8 +5,8 @@ Welcome to CWT_Multi's documentation!
 perform a version of continuous wavelet transform (CWT) analysis
 that is specialized for application to nonstationary tidal data.
 
-Check out the :doc:`usage` section for further information, including
-how to :ref:`install` the project.
+See below to navigate to pages that detail program installation, background maths,
+the theory of CWT_Multi, and how to use CWT_Multi in practice.
 
 .. note::
 
