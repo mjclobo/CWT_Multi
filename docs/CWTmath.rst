@@ -16,12 +16,11 @@ Tidal species and constituents
 Different *tidal constituents* describe unique frequencies that correspond
 to different sets of Doodson numbers.
 Doodson numbers describe the fundamental forcing temporal periods of the tides.
+(The first Doodson number =s describes number of cycles per lunar day, the second Doodson
+number describes number of cycles per sidereal year, etc.)
 *Tidal species* describes groups of tidal constituents
 that have the same number of cycles per lunar day, i.e, they
 share a first Doodson number.
-
-
-
 
 
 The Rayleigh criterion defined
@@ -39,9 +38,9 @@ and :math:`S_{2}` tidal constituents with :math:`R_{C}=1`,
 we need to use an analysis window length of
 
     .. math::
-    L_{w}  &= \left | f_{M_{2}} - f_{S_{2}} | ^{-1} \\
-    &= \left | 1/12.4206012 - 1/12 \right | ^{-1} \ \mathrm{hr} \\
-    & \approx 15 \ \mathrm{days} \, . 
+     L_{w}  &= \left | f_{M_{2}} - f_{S_{2}} | ^{-1} \\
+     &= \left | 1/12.4206012 - 1/12 \right | ^{-1} \ \mathrm{hr} \\
+     & \approx 15 \ \mathrm{days} \, . 
 
 Another way to word the Rayleigh criterion is:
 if a signal is composed of sine waves at two different frequencies
@@ -51,7 +50,7 @@ in order to be able to tell the two frequencies apart.
 This is shown graphically below.
 
 .. image:: /images/RC_Lw.png
-   :width: 300pt
+   :width: 600pt
 
 The Rayleigh criterion in spectral space
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -73,7 +72,7 @@ Once we analyze a signal that is at least the length :math:`L_{w}`,
 we are able to resolve energy at the two frequencies (green line).
 
 .. image:: /images/RC_spectra.png
-   :width: 300pt
+   :width: 600pt
 
 Note, however, that as the analyzed signal gets longer,
 the peaks at the two frequencies become more distinct (yellow line).
@@ -82,6 +81,13 @@ vertical lines (hence the often-used term *line spectra*).
 The apparent "spreading" of energy at frequencies around
 :math:`M_{2}` and :math:`S_{2}` is an artifact of the finite-length
 analysis window.
+
+CWT_Multi application method for a full time series
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+We now describe the CWT_Multi process that occurs at each analysis time step,
+centered on :math:`t_m`.
 
 
 CWT_Multi filters
@@ -102,7 +108,7 @@ CWT_Multi performs analogous convolutions using complex wavelet filters.
 An example of such a filter is shown below.
 
 .. image:: /images/M2_wavelet.png
-   :width: 300pt
+   :width: 600pt
 
 In short, the form of our wavelet maximizes the amount
 of information one is able to extract from this convolution
@@ -194,6 +200,7 @@ Though this may seem like a problem, we will explain how the RCM accounts for su
 First, we review some salient aspects of the frequency response plot, and their connections to the RCM.
 
 Here are some things to note for the frequency response figure above:
+
 - We have :math:`r_{M_{2}, \, M_{2}} = 1` and :math:`r_{S_{2}, \, S_{2}} = 1`,
   as expected
 - If the :math:`M_{2}` and :math:`S_{2}` filters are the same length, as above,
