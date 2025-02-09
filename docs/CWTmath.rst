@@ -35,12 +35,11 @@ That is, the minimum window length is
 
 where we generally require :math:`R_{C} = 1`.
 For example, in order to resolve the :math:`M_{2}`
-and :math":`S_{2}` tidal constituents with :math:`R_{C}=1`,
+and :math:`S_{2}` tidal constituents with :math:`R_{C}=1`,
 we need to use an analysis window length of
 
     .. math::
-    L_{w} 
-    &= \left | f_{M_{2}} - f_{S_{2}} | ^{-1} \\
+    L_{w}  &= \left | f_{M_{2}} - f_{S_{2}} | ^{-1} \\
     &= \left | 1/12.4206012 - 1/12 \right | ^{-1} \ \mathrm{hr} \\
     & \approx 15 \ \mathrm{days} \, . 
 
@@ -67,7 +66,7 @@ Below we show a the spectrum of a signal that is the sum of
 equal-amplitude sine waves at the :math:`M_{2}` and :math:`S_{2}`
 tidal frequencies.
 We compute the energy spectrum for signals of three different
-lengths: :math:`L_{w} / 2`, :math:`L_{w}`, and :math"`2 \, L_{w}`.
+lengths: :math:`L_{w} / 2`, :math:`L_{w}`, and :math:`2 \, L_{w}`.
 We find that with the shortest window we are not able to differentiate between
 energy at the two frequencies (red line).
 Once we analyze a signal that is at least the length :math:`L_{w}`,
@@ -122,7 +121,7 @@ matrix.
 First, we must understand what a frequency response is, and how this
 concept manifests in CWT_Multi.
 
-Frequency response
+Frequency response: A definition
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 From the spectrum plot above, we see that finite-length
 complex sinusoids (and wavelet filters) within a given frequency
@@ -140,7 +139,7 @@ to construct a matrix problem.
 We now present this matrix problem.
 
 
-Response coefficient matrix
+Response coefficient matrix: The problem
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 The response coefficient matrix problem is
 
@@ -157,8 +156,8 @@ where:
   of the signal at the frequencies :math:`f_n`
 
 The easiest way to understand the RCM is in terms of a simplified problem.
-Consider a signal that only has energy at the :math:`M_{2}` and :math:`S_{2}`
-frequencies, where we would like to define the :math:`M_{2}` and :math:`S_{2}`
+Consider a set of wavelet filters at the :math:`M_{2}` and :math:`S_{2}` frequencies,
+where we would like to define the :math:`M_{2}` and :math:`S_{2}`
 amplitudes as a function of time.
 We thus define the RCM as
 
@@ -169,14 +168,109 @@ We thus define the RCM as
     r_{S_{2}, \, M_{2}} & r_{S_{2}, \, S_{2}}
     \end{pmatrix} \, ,
 
-where :math:`r_{f_{1}, \, f_{2}}` describes the fre
+where :math:`r_{f_{1}, \, f_{2}}` describes the frequency of the :math:`f_{1}` filter
+to energy at the :math:`f_{2}` frequency, with a maximum value of unity.
+For example, :math:`r_{M_{2}, \, M_{2}} = 1`, since the :math:`M_{2}` filter will
+respond to all of the energy at the :math:`M_{2}` frequency.
+
+As noted above, the filter width in time (equivalently, the length of the analysis window),
+will determine the width in frequency-space, :math:`\Delta f`, at which
+the filter will respond to energy at adjacent frequencies.
+We can now plot the frequency response for our simplified problem.
+In particular, we show the filter responses for the two filters for two different
+choices of wavelet filter length.
+
+.. image:: /images/RCM_filter_response.png
+   :width: 400pt
+
+We show the frequency response for the :math:`M_{2}` (red)
+and :math:`S_{2}` (blue) filters above, as a function of frequency.
+For the narrower filters (panel (a)), the surrounding band of frequencies, for which the
+respective filters respond to energy, is relatively wide.
+In particular, :math:`r_{S_{2}, \, M_{2}} \approx 0.45` means that the :math:`S_{2}` filter
+will include 45% of the energy that exists at the :math:`M_{2}` frequency in its estimate
+of the amplitude of the :math:`S_{2}` component of the signal during the analysis window.
+Though this may seem like a problem, we will explain how the RCM accounts for such overlap in the following section.
+First, we review some salient aspects of the frequency response plot, and their connections to the RCM.
+
+Here are some things to note for the frequency response figure above:
+- We have :math:`r_{M_{2}, \, M_{2}} = 1` and :math:`r_{S_{2}, \, S_{2}} = 1`,
+  as expected
+- If the :math:`M_{2}` and :math:`S_{2}` filters are the same length, as above,
+  then we have :math:`r_{S_{2}, \, M_{2}} = r_{M_{2}, \, S_{2}}`, and the RCM is a
+  symmetric matrix
+- The wider the filter in time, i.e., the longer the analysis window, the more narrow
+  the frequency response is
+
+The last point should be thought upon, as it is this feature of the RCM that guides
+one's choice of filter lengths when using CWT_Multi.
+**The user must choose a trade-off between having time-resolution (i.e., being able
+to define a tidal amplitude that varies as a function of time) and frequency-resolution
+(i.e., being able to distinguish energy between two frequencies.**
+
+.. note::
+    The reader might be wondering why the 15-day-long wavelet filters respond to nearby frequencies,
+   whereas the Rayleigh criterion suggests that 15 days is long enough to resolve the :math:`M_{2}`
+   and :math:`S_{2}` signals.
+   This is because the wavelet filters are tapered, and carry about 80% of their energy in the middle
+   half of the filter (see the plot of complex wavelet filter above).
+   So the effective length of a wavelet filter, in terms of a Rayleigh criterion, is close to about half
+   of the user-specified wavelet filter length.
 
 
 
+Response coefficient matrix: The solution
+~~~~~~~~~~~~~~~~~~~~~~~~~
+We have defined the response coefficient matrix (RCM), and have hopefully
+provided some insight into its meaning and its connection to CWT_Multi analysis.
+As a final stop in our exposition of the theory that supports CWT_Multi analysis,
+we consider the solution to the RCM problem.
 
 
-From these definitions we can describe the RCM problem in words:
-the true amplitudes are 
+The RCM problem (also defined above) is
+
+   .. math::
+    \vec{f} (t_m) = \boldsymbol{R} \, \vec{a}(t_m) \, ,
+
+In the example currently under consideration, we consider filters
+only at the :math:`M_{2}` and :math:`S_{2}` tidal frequencies.
+Now, suppose that signal only has energy at the :math:`M_{2}` and :math:`S_{2}`
+frequencies, each with unity amplitude.
+
+For filters that are 15 days long (panel (a)) above, our RCM problem
+becomes
+
+    .. math::
+    \begin{pmatrix}
+    1.45 \\
+    1.45 \\
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+    1.0 & 0.45 \\
+    0.45 & 1.0 
+    \end{pmatrix}
+    \ \begin{pmatrix}
+    a_{M_{2}} \\
+    a_{S_{2}}
+    \end{pmatrix} \, .
+
+By multiplying both sides by :math:`\boldsymbol{R}^{-1}` we find
+
+    .. math::
+    \vec{a} =
+    \begin{pmatrix}
+    1.0 \\
+    1.0
+    \end{pmatrix} \, .
+
+Thus we are able to recover our true amplitudes, :math:`\vec{a}`, from
+(i) the response of our wavelet filters to the signal, and
+(ii) the known response coefficient matrix.
+
+Note that the RCM problem becomes trivial for
+:math:`r_{S_{2}, \, M_{2}} = r_{M_{2}, \, S_{2}} \approx 0.0`,
+where the filters do not respond to energy at the adjacent tidal frequency.
 
 
 

@@ -128,10 +128,10 @@ if spOnlyBool==0
             for j=1:nC
                 factor_i_denom = 0;
                 for l=1:nC
-                    factor_i_denom = factor_i_denom + (constits.resp.mats{i}(j,l)*nanmean(constits.(constits.names{nT+l}).amps))^2;
+                    factor_i_denom = factor_i_denom + (constits.resp.mats{i}(j,l)*mean(constits.(constits.names{nT+l}).amps, "omitnan"))^2;
                 end
                 factor_i_denom = sqrt(factor_i_denom);
-                factor_i(k) = 1-(constits.resp.mats{i}(j,j)*nanmean(constits.(constits.names{k}).amps))/factor_i_denom;
+                factor_i(k) = 1-(constits.resp.mats{i}(j,j)*mean(constits.(constits.names{k}).amps, "omitnan"))/factor_i_denom;
                 LOF = coFiltLength(k)/24;   % now in days
                 df_MH(k)= 2/(LOF*sqrt(constits_SNR(k)));        
                 df_resolved(k)=df_MH(k)*(factor_i(k));      % factor of 2 is bc we want half of LOF
@@ -219,10 +219,10 @@ nS = length(species.resp.mats(1,:));
 for j=1:nS
     factor_i_denom = 0;
     for l=1:nS
-        factor_i_denom = factor_i_denom + (species.resp.mats(j,l)*nanmean(species.(species.names(l)).amps))^2;
+        factor_i_denom = factor_i_denom + (species.resp.mats(j,l)*mean(species.(species.names(l)).amps, "omitnan"))^2;
     end
     factor_i_denom = sqrt(factor_i_denom);
-    factor_i(j) = 1-(species.resp.mats(j,j)*nanmean(species.(species.names(j)).amps))/factor_i_denom;
+    factor_i(j) = 1-(species.resp.mats(j,j)*mean(species.(species.names(j)).amps, "omitnan"))/factor_i_denom;
     LOF = spFiltLength(j)/24;   % now in days
     df_MH(j)= 2/(LOF*sqrt(species_SNR(j)));        
     df_resolved(j)=df_MH(j)*(factor_i(j));      % factor of 2 is bc we want half of LOF
