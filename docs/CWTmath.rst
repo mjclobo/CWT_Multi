@@ -181,7 +181,7 @@ In particular, we show the filter responses for the two filters for two differen
 choices of wavelet filter length.
 
 .. image:: /images/RCM_filter_response.png
-   :width: 400pt
+   :width: 700pt
 
 We show the frequency response for the :math:`M_{2}` (red)
 and :math:`S_{2}` (blue) filters above, as a function of frequency.
@@ -210,12 +210,12 @@ to define a tidal amplitude that varies as a function of time) and frequency-res
 
 .. note::
     The reader might be wondering why the 15-day-long wavelet filters respond to nearby frequencies,
-   whereas the Rayleigh criterion suggests that 15 days is long enough to resolve the :math:`M_{2}`
-   and :math:`S_{2}` signals.
-   This is because the wavelet filters are tapered, and carry about 80% of their energy in the middle
-   half of the filter (see the plot of complex wavelet filter above).
-   So the effective length of a wavelet filter, in terms of a Rayleigh criterion, is close to about half
-   of the user-specified wavelet filter length.
+    whereas the Rayleigh criterion suggests that 15 days is long enough to resolve the :math:`M_{2}`
+    and :math:`S_{2}` signals.
+    This is because the wavelet filters are tapered, and carry about 80% of their energy in the middle
+    half of the filter (see the plot of complex wavelet filter above).
+    So the effective length of a wavelet filter, in terms of a Rayleigh criterion, is close to about half
+    of the user-specified wavelet filter length.
 
 
 
@@ -241,28 +241,28 @@ For filters that are 15 days long (panel (a)) above, our RCM problem
 becomes
 
     .. math::
-    \begin{pmatrix}
-    1.45 \\
-    1.45 \\
-    \end{pmatrix}
-    =
-    \begin{pmatrix}
-    1.0 & 0.45 \\
-    0.45 & 1.0 
-    \end{pmatrix}
-    \ \begin{pmatrix}
-    a_{M_{2}} \\
-    a_{S_{2}}
-    \end{pmatrix} \, .
+     \begin{pmatrix}
+     1.45 \\
+     1.45 \\
+     \end{pmatrix}
+     =
+     \begin{pmatrix}
+     1.0 & 0.45 \\
+     0.45 & 1.0 
+     \end{pmatrix}
+     \ \begin{pmatrix}
+     a_{M_{2}} \\
+     a_{S_{2}}
+     \end{pmatrix} \, .
 
 By multiplying both sides by :math:`\boldsymbol{R}^{-1}` we find
 
     .. math::
-    \vec{a} =
-    \begin{pmatrix}
-    1.0 \\
-    1.0
-    \end{pmatrix} \, .
+     \vec{a} =
+     \begin{pmatrix}
+     1.0 \\
+     1.0
+     \end{pmatrix} \, .
 
 Thus we are able to recover our true amplitudes, :math:`\vec{a}`, from
 (i) the response of our wavelet filters to the signal, and
