@@ -12,12 +12,16 @@ For now, we refer the reader to Lobo et al. (2024) and references
 therein.
 
 
+We briefly cover some basic preliminaries before diving into
+the details of CWT_Multi.
+
 Tidal species and constituents
 ~~~~~~~~~~~~~~~~~~~~~~~~~
-Different *tidal constituents* describe unique frequencies that correspond
-to different sets of Doodson numbers.
+Different *tidal constituents* describe unique frequencies of tidal forcing that correspond
+to different sets of Doodson numbers, i.e., different combinations of tidal forcing phenomena
+that lead to a unique frequency.
 Doodson numbers describe the fundamental forcing temporal periods of the tides.
-(The first Doodson number =s describes number of cycles per lunar day, the second Doodson
+(The first Doodson number describes number of cycles per lunar day, the second Doodson
 number describes number of cycles per sidereal year, etc.)
 *Tidal species* describes groups of tidal constituents
 that have the same number of cycles per lunar day, i.e, they
@@ -27,11 +31,11 @@ share a first Doodson number.
 The Rayleigh criterion defined
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 The *Rayleigh criterion*, :math:`R_{C}`, describes the minimum analysis window
-required to separate two signals with different frequencies.
+length required to separate two signals with different frequencies.
 That is, the minimum window length is
 
    .. math::
-    L_{w} = R_{C} \, \left | f_{1} - f_{2} \right | ^{-1} \, ,
+    L_{w} = R_{C} \, \left | f_{1} - f_{2} \right | ^{-1} \ \mathrm{seconds} \, ,
 
 where we generally require :math:`R_{C} = 1`.
 For example, in order to resolve the :math:`M_{2}`
@@ -46,9 +50,9 @@ we need to use an analysis window length of
      &\approx 15 \ \mathrm{days} \, . 
 
 Another way to word the Rayleigh criterion is:
-if a signal is composed of sine waves at two different frequencies
+if a signal is composed of sine waves at two different frequencies,
 we need the sine wave at the higher frequency to complete
-at least one more cycle than the signal at the lower frequency,
+at least one more cycle than the sine wave at the lower frequency,
 in order to be able to tell the two frequencies apart.
 This is shown graphically below.
 
@@ -64,15 +68,17 @@ frequency, e.g., power spectrum, absorption spectrum.
 Thus, we can draw a spectrum where the x-axis is
 frequency, and the y-axis is some measure of tidal amplitude.
 
-Below we show a the spectrum of a signal that is the sum of
+Below we show the energy spectrum of a signal that is made up of the sum of
 equal-amplitude sine waves at the :math:`M_{2}` and :math:`S_{2}`
 tidal frequencies.
-We compute the energy spectrum for signals of three different
-lengths: :math:`L_{w} / 2`, :math:`L_{w}`, and :math:`2 \, L_{w}`.
+We compute the energy spectrum (using the Fast Fourier Transform algorithm) for signals of three different
+lengths: :math:`L_{w} / 2`, :math:`L_{w}`, and :math:`2 \, L_{w}`, where
+:math:`L_{w}` is the minimum window length required to separate the two frequencies,
+as defined by the Rayleigh criterion.
 We find that with the shortest window we are not able to differentiate between
 energy at the two frequencies (red line).
 Once we analyze a signal that is at least the length :math:`L_{w}`,
-we are able to resolve energy at the two frequencies (green line).
+we marginally resolve energy at the two frequencies (green line).
 
 .. image:: /images/RC_spectra.png
    :width: 600pt
@@ -89,6 +95,8 @@ CWT_Multi application method for a full time series
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 The fundamental application of CWT_Multi is to *define
 tidal amplitudes and phases that vary as functions of time*.
+From these time-varying amplitudes and phases we can then reconstruct
+a nonstationary time series of water level data, for example.
 Here we provide a brief explanation of the framework used to accomplish this goal.
 
 First, we note that CWT_Multi performs both a species and constituents analysis.
@@ -127,7 +135,7 @@ The Fourier amplitude at a given frequency, :math:`f`, is essentially the magnit
 of a complex sinusoid, of the form
 
    .. math::
-    e^{i \, t \,2 \, \pi \, f}
+    e^{i \,2 \pi f t}
     = \mathrm{cos}(2 \pi f t ) + i \, \mathrm{sin} (2 \pi f t )  \, ,
 
 with the signal being analyzed, over the analysis window length.
@@ -163,6 +171,12 @@ From the spectrum plot above, we see that finite-length
 complex sinusoids (and wavelet filters) within a given frequency
 band, which we define as :math:`f \pm \Delta f`, will "respond" to
 energy at the central frequency, :math:`f`.
+For example, in the spectra above, computed using the FFT,
+there is apparent energy
+at frequencies surrounding the :math:`M_{2}` and
+:math:`S_{2}` frequencies, even though our analyzed signal is only
+comprised of two sine waves.
+
 Importantly, this *frequency response* is a function
 of the analysis window length.
 Shorter filters (equivalently, shorter analysis windows) will
@@ -185,7 +199,7 @@ The response coefficient matrix problem is
 where:
 
 - :math:`t_m` is the time at the center of the analysis window
-- :math:`\vec{f}` is an :math:`N \times 1` column vector of the complex output from
+- :math:`\vec{f}` is an :math:`N \times 1` column vector of the complex outputs from
   the :math:`N` complex wavelet filters (at frequency :math:`f_n`) with signal, centered on time :math:`t_m`
 - :math:`\boldsymbol{R}` is the *response coefficient matrix* (RCM), which we describe in detail below
 - :math:`\vec{a}(t_m)` is the :math:`N \times 1` column vector of the true amplitudes
@@ -212,6 +226,7 @@ respond to all of the energy at the :math:`M_{2}` frequency.
 As noted above, the filter width in time (equivalently, the length of the analysis window),
 will determine the width in frequency-space, :math:`\Delta f`, at which
 the filter will respond to energy at adjacent frequencies.
+In particular, a wider frequency in time has a narrower response in frequency-space.
 We can now plot the frequency response for our simplified problem.
 In particular, we show the filter responses for the two filters for two different
 choices of wavelet filter length.
@@ -221,15 +236,13 @@ choices of wavelet filter length.
 
 We show the frequency response for the :math:`M_{2}` (red)
 and :math:`S_{2}` (blue) filters above, as a function of frequency.
-For the narrower filters (panel (a)), the surrounding band of frequencies, for which the
+For the narrower-in-time filters (panel (a)), the surrounding band of frequencies, for which the
 respective filters respond to energy, is relatively wide.
 In particular, :math:`r_{S_{2}, \, M_{2}} \approx 0.45` means that the :math:`S_{2}` filter
 will include 45% of the energy that exists at the :math:`M_{2}` frequency in its estimate
 of the amplitude of the :math:`S_{2}` component of the signal during the analysis window.
 Though this may seem like a problem, we will explain how the RCM accounts for such overlap in the following section.
 First, we review some salient aspects of the frequency response plot, and their connections to the RCM.
-
-Here are some things to note for the frequency response figure above:
 
 - We have :math:`r_{M_{2}, \, M_{2}} = 1` and :math:`r_{S_{2}, \, S_{2}} = 1`,
   as expected
@@ -304,16 +317,37 @@ By multiplying both sides by :math:`\boldsymbol{R}^{-1}` we find
 Thus we are able to recover our true amplitudes, :math:`\vec{a}`, from
 (i) the response of our wavelet filters to the signal, and
 (ii) the known response coefficient matrix.
-
 Note that the RCM problem becomes trivial for
 :math:`r_{S_{2}, \, M_{2}} = r_{M_{2}, \, S_{2}} \approx 0.0`,
 where the filters do not respond to energy at the adjacent tidal frequency.
 
 
 
+**CWT_Multi creates an analogous matrix problem for tidal constituents within
+a tidal species band for the constituents analysis.**
+An analogous matrix problem is also create for the species analysis, where
+there is only one filter per tidal species.
+However, these species filters are much shorter, and therefore have a much wider
+frequency response.
+That is, we favor resolution in time (i.e., a shorter filter can capture changes that occur
+on smaller time scales) and sacrifice frequency resolution (i.e., the species filter can only identify a "blob"
+of energy within each respective tidal species band).
+
+The application of the CWT_Multi method to observed data is more
+unwieldy, because (i) there will exist energy at tidal frequencies
+that do not have filters, and (ii) as more frequencies are added to the filter
+bank, the RCM problem becomes more susceptible to "cross-talk"
+between tidal consituents/species.
+Regardless, Lobo et al., (2024) have shown that the CWT_Multi method
+is effective at quantifying nonstationary tidal amplitudes/phases
+and reconstructing a tidal-energy-only time series for many
+applications.
+
+
 Additional reading
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 - See `Lobo et al., (2024) <https://journals.ametsoc.org/view/journals/atot/41/10/JTECH-D-23-0144.1.xml>`_
   for details on the information presented on this page.
-
+- `Lilly and Ohelde (2012) <https://ieeexplore.ieee.org/document/6255798>`_ provides excellent exposition
+  to the considerations had when choosing wavelet filter type and parameters.
 
