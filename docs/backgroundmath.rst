@@ -64,62 +64,60 @@ in time, which we call :math:`S_{1}(t)` and
 :math:`S_{2}(t)` here for convenience.
 Generally one signal is your signal of interest, e.g., a water level time series,
 while the other signal is a piece of some analytic method, e.g., a sine wave.
-A convolution is a function of time
+A convolution is a function of time.
+
 The steps to a convolution are:
 
-- Line up :math:`S_{1}(t)` and a flipped version of :math:`S_{2}(t - \tau)` so that they overlap
-  by one point in time (:math:`\tau`, loosely, tracks by how many points the two signals overlap) 
-- Multiply every point in time and sum (note that the only non-zero parts
+- Line up :math:`S_{1}(t)` and a flipped version of :math:`S_{2}(t-\tau)` so that they overlap
+  by one point in time; specifically, they overlap for the last point in time
+  where you have a value for :math:`S_{1}(t)` (:math:`\tau`, loosely, tracks by how many points the two signals overlap) 
+- Multiply every point in time where there is overlap and sum (note that the only non-zero parts
   of the sum are where the two signals overlap)
 - Shift :math:`S_{2}(t - \tau)` one point to the left, so that the two signals
   overlap at two points in time and sum
 - Repeat this process until :math:`S_{2}(t - \tau)` is on the left side
   of :math:`S_{1}(t)`, i.e., :math:`\tau > t_\mathrm{max}`
-
-
+- You should now have a value for the convolution at every point in time where the two
+  signals overlapped.
 
 Complex numbers
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 We define a complex number as
 
-.. math::
-    C \equiv a + i \, b \,  ,
+    .. math::
+     C \equiv a + i \, b \,  ,
 
 where :math:`a` is the *real* component,
 :math:`b` is the *imaginary* component,
 and :math:`i = \sqrt{-1}` is the
 *imaginary number*.
 The power of complex numbers, arguably, lies in their ability to
-represent sine waves.
+represent the amplitude and phase of a signal.
+In particular, we will associate a complex number with a given frequency,
+such that we know the amplitude and phase of the signal at a given frequency,
+similar to the Fourier transform, but as a function of time.
 
-
-
-
+The equations for the amplitude and phase of a complex number are
+found easily online.
+We encourage the reader to view `this video <https://www.youtube.com/watch?v=YVLEsxq2kEA>`,
+which illustrates exactly how a complex number represents a signal's amplitude and
+phase.
 
 A wavelet
 ~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-
-
-
-
-
-
-
-A spectrogram
-~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-
-
-
-
-
+In brief, wavelet analysis provides information on the amplitude
+and phase of a signal as a function of both frequency and time.
+This is different than Fourier analysis, where the latter assumes
+stationarity of the amplitude and phase, i.e., there is only one amplitude
+and phase value at a given frequency for the signal being analyzed.
 
 
 Additional reading
 ~~~~~~~~~~~~~~~~~~~~~~~~~
-
+- We recommend `this 3Blue1Brown video <https://www.youtube.com/watch?v=spUNpyF58BY>`
+  for an intuitive introduction to the Fourier Transform.
+- Jonathan Lilly has great `course material <http://jmlilly.net/course/index.html>`
+  for more details on wavelet analysis and
+  signal processing, more generally.
 
 

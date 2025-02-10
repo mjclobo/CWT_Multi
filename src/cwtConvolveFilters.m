@@ -98,7 +98,7 @@ function [result,meanO,dataCent,refTime] = waveletConv(dataHi,wts,maxFL,filt,nor
     
     nStart = 1 + cell2mat(cellit(@(it1) (maxFL-1)/2 - (length(filt{it1})-1)/2,1:N));
     nEnd = nData - nStart + 1;
-    
+    x=n
     result = pardo2(N,@(it1) norm(it1) * NConvolved([],dataCent(nStart(it1):nEnd(it1)),filt{it1}.',wts.',decFact,wtCrit));
     
     refTime = cell2mat(pardo2(1,@(it1) NConvolved(times(nStart(it1):nEnd(it1)),dataCent(nStart(it1):nEnd(it1)),filt{it1}.',wts.',decFact,wtCrit)));
