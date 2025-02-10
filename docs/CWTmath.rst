@@ -3,8 +3,9 @@ Basic CWT_Multi theory
 =========================================
 
 On this page we provide the basic theory required
-to understand how CWT_Multi, and wavelet transforms more generally,
-work.
+to understand how CWT_Multi works.
+This knowledge empowers the user to get the most out of
+CWT_Multi for their specific application.
 We present ideas and illustrations, rather than comprehensive maths.
 Future pages in this documentation will cover the mathematic details.
 For now, we refer the reader to Lobo et al. (2024), and include
@@ -103,16 +104,16 @@ we resolve time-changes of constituent amplitudes on the order of one to two wee
 
 The main steps that the CWT_Multi analysis is comprised of are:
 
-    1. Define the analysis window for a given time step, centered on time :math:`t_m`
-    2. Convolve each filter from the filter bank with data within the analysis window.
-           (This step outputs a complex response.)
-    3. Solve the response coefficient matrix problem (detailed below).
-    4. Store complex solution for all frequencies that have corresponding filters at the time :math:`t_m`.
-           (From this complex solution, one easily retrieves amplitude and phase.)
-    5. Move the analysis window forward to :math:`t_m \, + \, D_{f} \Delta t`, where :math:`D_{f}` is
-           the decimation factor, i.e., the number of time steps between adjacent CWT_Multi analyses, and
-           :math:`\Delta t` is the sampling period.
-    6. Repeat.
+1. Define the analysis window for a given time step, centered on time :math:`t_m`
+2. Convolve each filter from the filter bank with data within the analysis window.
+   (This step outputs a complex response.)
+3. Solve the response coefficient matrix problem (detailed below).
+4. Store complex solution for all frequencies that have corresponding filters at the time :math:`t_m`.
+   (From this complex solution, one easily retrieves amplitude and phase.)
+5. Move the analysis window forward to :math:`t_m \, + \, D_{f} \Delta t`, where :math:`D_{f}` is
+   the decimation factor, i.e., the number of time steps between adjacent CWT_Multi analyses, and
+   :math:`\Delta t` is the sampling period.
+6. Repeat.
 
 
 We now describe the maths behind the CWT_Multi process that occurs at each analysis time step,

@@ -89,4 +89,3 @@ ax.FontSize = 14;
 xlabel(p,'Time','FontSize',18)
 % ylabel(p,'Amplitude (m)','FontSize',18)
 set(gcf,'Position',[100 100 1600 500])
-
