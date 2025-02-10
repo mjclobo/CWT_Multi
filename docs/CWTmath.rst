@@ -8,8 +8,8 @@ This knowledge empowers the user to get the most out of
 CWT_Multi for their specific application.
 We present ideas and illustrations, rather than comprehensive maths.
 Future pages in this documentation will cover the mathematic details.
-For now, we refer the reader to Lobo et al. (2024), and include
-additional references at the bottom of this page.
+For now, we refer the reader to Lobo et al. (2024) and references
+therein.
 
 
 Tidal species and constituents
@@ -41,9 +41,9 @@ we need to use an analysis window length of
    .. math::
      
      L_{w} 
-     &= \left | f_{M_{2}} - f_{S_{2}} | ^{-1}  \\
-     &= \left | 1/12.4206012 - 1/12 \right | ^{-1} \ \mathrm{hr}  \\
-     &\approx 15 \ \mathrm{days} \, . 
+     = \left | f_{M_{2}} - f_{S_{2}} | ^{-1}  
+     = \left | 1/12.4206012 - 1/12 \right | ^{-1} \ \mathrm{hr}  
+     \approx 15 \ \mathrm{days} \, . 
 
 Another way to word the Rayleigh criterion is:
 if a signal is composed of sine waves at two different frequencies
@@ -313,6 +313,7 @@ where the filters do not respond to energy at the adjacent tidal frequency.
 
 Additional reading
 ~~~~~~~~~~~~~~~~~~~~~~~~~
-
+- See `Lobo et al., (2024) <https://journals.ametsoc.org/view/journals/atot/41/10/JTECH-D-23-0144.1.xml>`_
+  for details on the information presented on this page.
 
 

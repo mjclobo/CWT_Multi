@@ -16,7 +16,8 @@ information of increasing level of complexity.
 The reader is encouraged to scan the material until they
 come to a section that contains information unfamiliar
 to them.
-
+If the reader is familiar with the basics of signal processing, then
+they may wish to proceed directly to the *Basic CWT_Multi theory* page.
 
 Sinusoids and complex exponentials
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -99,7 +100,7 @@ similar to the Fourier transform, but as a function of time.
 
 The equations for the amplitude and phase of a complex number are
 found easily online.
-We encourage the reader to view `this video <https://www.youtube.com/watch?v=YVLEsxq2kEA>`,
+We encourage the reader to view `this video <https://www.youtube.com/watch?v=YVLEsxq2kEA>`_,
 which illustrates exactly how a complex number represents a signal's amplitude and
 phase.
 
@@ -114,9 +115,9 @@ and phase value at a given frequency for the signal being analyzed.
 
 Additional reading
 ~~~~~~~~~~~~~~~~~~~~~~~~~
-- We recommend `this 3Blue1Brown video <https://www.youtube.com/watch?v=spUNpyF58BY>`
+- We recommend `this 3Blue1Brown video <https://www.youtube.com/watch?v=spUNpyF58BY>`_
   for an intuitive introduction to the Fourier Transform.
-- Jonathan Lilly has great `course material <http://jmlilly.net/course/index.html>`
+- Jonathan Lilly has great `course material <http://jmlilly.net/course/index.html>`_
   for more details on wavelet analysis and
   signal processing, more generally.
 
