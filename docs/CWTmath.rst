@@ -41,9 +41,9 @@ we need to use an analysis window length of
    .. math::
      
      L_{w} 
-     = \left | f_{M_{2}} - f_{S_{2}} | ^{-1}  
-     = \left | 1/12.4206012 - 1/12 \right | ^{-1} \ \mathrm{hr}  
-     \approx 15 \ \mathrm{days} \, . 
+     &= \left | f_{M_{2}} - f_{S_{2}} \right | ^{-1}  \\
+     &= \left | 1/12.4206012 - 1/12 \right | ^{-1} \ \mathrm{hr}  \\
+     &\approx 15 \ \mathrm{days} \, . 
 
 Another way to word the Rayleigh criterion is:
 if a signal is composed of sine waves at two different frequencies
