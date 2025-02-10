@@ -1,4 +1,11 @@
 
+We highly recommend that potential users of CWT_Multi read
+[our official documentation](https://cwt-multi.readthedocs.io/en/latest/index.html).
+In particular, the [Basic CWT_Multi theory](https://cwt-multi.readthedocs.io/en/latest/CWTmath.html)
+page provides the user with basic understanding of the math behind the
+CWT_Multi method.
+We recommend [Lobo et al., (2024)](https://journals.ametsoc.org/view/journals/atot/41/10/JTECH-D-23-0144.1.xml)
+for the user that would like to know more about the advanced features of the CWT_Multi program.
 
 # CWT_Multi
 CWT_Multi is written in Matlab version R2020a.
