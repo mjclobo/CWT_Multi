@@ -37,10 +37,12 @@ For example, in order to resolve the :math:`M_{2}`
 and :math:`S_{2}` tidal constituents with :math:`R_{C}=1`,
 we need to use an analysis window length of
 
-    .. math::
-     L_{w}  &= \left | f_{M_{2}} - f_{S_{2}} | ^{-1} \\
-     &= \left | 1/12.4206012 - 1/12 \right | ^{-1} \ \mathrm{hr} \\
-     & \approx 15 \ \mathrm{days} \, . 
+   .. math::
+     
+     L_{w} 
+     &= \left | f_{M_{2}} - f_{S_{2}} | ^{-1}  \\
+     &= \left | 1/12.4206012 - 1/12 \right | ^{-1} \ \mathrm{hr}  \\
+     &\approx 15 \ \mathrm{days} \, . 
 
 Another way to word the Rayleigh criterion is:
 if a signal is composed of sine waves at two different frequencies
@@ -84,9 +86,36 @@ analysis window.
 
 CWT_Multi application method for a full time series
 ~~~~~~~~~~~~~~~~~~~~~~~~~
+The fundamental application of CWT_Multi is to *define
+tidal amplitudes and phases that vary as functions of time*.
+Here we provide a brief explanation of the framework used to accomplish this goal.
+
+First, we note that CWT_Multi performs both a species and constituents analysis.
+The *species analysis* defines time-varying amplitudes and phases for each tidal species,
+i.e., diurnal (:math:`D_{1}`), semidiurnal (:math:`D_{2}`), etc.
+This analysis can resolve time-changes in species amplitudes on the order of a couple/few days.
+
+The *constituents analysis* defines time-varying amplitudes and phases for 7-9 individual tidal
+constituents within the diurnal and semidiurnal tidal species bands.
+Since constituents within the same species are fairly close together (below, we will detail how the
+closeness of the :math:`M_{2}` and :math:`S_{2}` constituents affects our analysis, for example),
+we resolve time-changes of constituent amplitudes on the order of one to two weeks.
+
+The main steps that the CWT_Multi analysis is comprised of are:
+
+    1. Define the analysis window for a given time step, centered on time :math:`t_m`
+    2. Convolve each filter from the filter bank with data within the analysis window.
+           (This step outputs a complex response.)
+    3. Solve the response coefficient matrix problem (detailed below).
+    4. Store complex solution for all frequencies that have corresponding filters at the time :math:`t_m`.
+           (From this complex solution, one easily retrieves amplitude and phase.)
+    5. Move the analysis window forward to :math:`t_m \, + \, D_{f} \Delta t`, where :math:`D_{f}` is
+           the decimation factor, i.e., the number of time steps between adjacent CWT_Multi analyses, and
+           :math:`\Delta t` is the sampling period.
+    6. Repeat.
 
 
-We now describe the CWT_Multi process that occurs at each analysis time step,
+We now describe the maths behind the CWT_Multi process that occurs at each analysis time step,
 centered on :math:`t_m`.
 
 

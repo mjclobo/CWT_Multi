@@ -50,8 +50,8 @@ function [constits,species,ref,admittances] = cwtMulti(dtimeIn,dataIn,varargin)
 %     {[Q1,O1,K1],[N2,M2,S2],[MO3,MK3],[MN4,M4,MS4]}.
 %     NAMES must be strings in double quotes, not single, i.e., "name".
 % 
-% 'decimate',decFact: decimation factor for analysis outputs; MUST BE
-%     EVEN! Default is 20.
+% 'decimate',decFact: decimation factor for analysis outputs in time steps; MUST BE
+%     EVEN! Default is 20 time steps.
 % 
 % 'refStation',refData: Use reference station data, rather than
 %     tidal potential, as the denominator when calculating admittances.
