@@ -13,7 +13,7 @@ if pfResid == 1
     p = figure();
     plot(x,spDataInHi .* wtsIn.')
     hold on
-    plot(x,species.reconHi)
+    plot(x,species.reconstruction.reconHi)
     hold off
     grid on
     legend('original','recon (species)')
@@ -26,7 +26,7 @@ if pfResid == 1
     set(gcf,'Position',[100 100 1500 600])
     
     p = figure();
-    plot(x,species.resid)
+    plot(x,species.reconstruction.residual)
     grid on
     ylabel('Residuals (species)')
     xlabel('Time [days]')
@@ -41,7 +41,7 @@ if pfResid == 1
     p = figure();
     plot(x,coDataInHi .* wtsIn.')
     hold on
-    plot(x,constits.reconHi)
+    plot(x,constits.reconstruction.reconHi)
     hold off
     grid on
     legend('original','recon (constits)')
@@ -54,7 +54,7 @@ if pfResid == 1
     set(gcf,'Position',[100 100 1500 600])
     
     p = figure();
-    plot(x,constits.resid)
+    plot(x,constits.reconstruction.residual)
     grid on
     ylabel('Residuals (constits)')
     xlabel('Time [days]')

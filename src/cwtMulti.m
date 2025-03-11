@@ -101,6 +101,12 @@ function [constits,species,ref,admittances] = cwtMulti(dtimeIn,dataIn,varargin)
 % 'alt_phase': There is the phase referenced to the center of the analysis
 %     window and that referenced to the beginning of the analysis window.
 %     The default is the latter, and passing this arg gives the former.
+% 'pct_valid', wtCrit: This defines the percentage of data that must be
+%     valid (i.e., not NaN) in order to convolve the filter with the data
+%     and return a complex filter response value. Note that the window
+%     length is set by the filter length. So one could have an analysis
+%     where, for example, D2 amplitudes are returned but D1 amplitudes are
+%     not, if the D2 filter is shorter than the D1 filter. Default is 0.9.
 % 
 % *** OUTPUTS ***
 % 
